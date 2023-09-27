@@ -3,19 +3,12 @@ package main
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"net/http"
 	handlers "shipment-service/handlers"
 )
 
 func main() {
 	fmt.Print("Welcome to Shipment Service!")
 	r := gin.Default()
-
-	r.GET("/ping", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{
-			"message": "pong",
-		})
-	})
 
 	r.POST("/package/calculate", handlers.Calculate)
 	r.POST("/package/add", handlers.AddPackageSize)

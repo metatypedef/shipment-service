@@ -54,7 +54,25 @@ func AddPackageSize(packageSize int) (bool, error) {
 	if packageSize <= 0 {
 		return false, fmt.Errorf("package size cannot less than 1")
 	} else {
+		// check if package size already existed
+		var alreadyExist = false
+		for _, value := range packageSizes {
+			if value == packageSize {
+				alreadyExist = true
+			}
+		}
+		if alreadyExist {
+			return false, fmt.Errorf("Package size already existed")
+		}
+
+		// add package size to collection
+		fmt.Printf("Before package sizes add: %v\n", packageSizes)
 		packageSizes = append(packageSizes, packageSize)
+
+		// reverse sort package scales
+		sort.Sort(sort.Reverse(sort.IntSlice(packageSizes)))
+
+		fmt.Printf("After package dizes add: %v\n", packageSizes)
 		return true, nil
 	}
 }
@@ -69,6 +87,10 @@ func RemovePackageSize(packageSize int) (bool, error) {
 				packageSizes = append(packageSizes[:index], packageSizes[index+1:]...)
 			}
 		}
+
+		// reverse sort package scales
+		sort.Sort(sort.Reverse(sort.IntSlice(packageSizes)))
+
 		fmt.Printf("After PackageSizes: %v\n", packageSizes)
 		return true, nil
 	}
