@@ -62,12 +62,33 @@ func TestCase5(t *testing.T) {
 }
 
 func TestCase6(t *testing.T) {
-	var expected = map[int]int{5000: 2, 2000: 1, 250: 1}
 	const itemsCount = -1
-	var output, err = services.CalculatePackagesFor(itemsCount)
+	var _, err = services.CalculatePackagesFor(itemsCount)
 	if err == nil {
 		t.Errorf("Error should not be nil")
-	} else if reflect.DeepEqual(output, expected) {
-		t.Errorf("Output is equal to expected result while input value is not correct")
+	}
+}
+
+func TestPackagingAdd(t *testing.T) {
+	const packagingSize = 3000
+	var _, err = services.AddPackageSize(packagingSize)
+	if err != nil {
+		t.Errorf("Error: %s", err.Error())
+	}
+}
+
+func TestPackagingAddError(t *testing.T) {
+	const packagingSize = -1
+	var _, err = services.AddPackageSize(packagingSize)
+	if err == nil {
+		t.Errorf("Error should not be nil")
+	}
+}
+
+func TestPackagingRemove(t *testing.T) {
+	const packagingSize = 5000
+	var _, err = services.RemovePackageSize(packagingSize)
+	if err != nil {
+		t.Errorf("Error: %s", err.Error())
 	}
 }
